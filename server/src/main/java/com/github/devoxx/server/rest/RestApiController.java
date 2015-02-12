@@ -1,4 +1,4 @@
-package com.github.devoxx.server;
+package com.github.devoxx.server.rest;
 
 import java.util.List;
 
