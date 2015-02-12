@@ -1,5 +1,9 @@
 package com.github.devoxx.server.repository;
 
+import com.github.devoxx.server.model.Actor;
+import com.github.devoxx.server.model.Movie;
+import com.github.javafaker.Faker;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -7,12 +11,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.github.devoxx.server.model.Actor;
-import com.github.devoxx.server.model.Movie;
-import com.github.javafaker.Faker;
-
 /**
- * Created by david.wursteisen on 12/02/2015.
+ * Created by david.wursteisen on 12-02-2015.
  */
 public class MovieRepository {
 
@@ -227,7 +227,7 @@ public class MovieRepository {
             new Movie("Drag Me To Hell"),
             new Movie("Wolfman"),
             new Movie("The Crazies"),
-            new Movie("The Crazies / Skinwalkers Strobe"),
+            new Movie("The Crazies Skinwalkers Strobe"),
             new Movie("The Promise"),
             new Movie("Gi Joe"),
             new Movie("The Dark Knight"),
@@ -245,7 +245,7 @@ public class MovieRepository {
             new Movie("Nightwatch"),
             new Movie("Nine"),
             new Movie("Punisher: Warzone"),
-            new Movie("Hellboy 2 / Pan's Labyrinth Strobe"),
+            new Movie("Hellboy 2 - Pan's Labyrinth Strobe"),
             new Movie("The Deaths Of Ian Stone"),
             new Movie("Shutter"),
             new Movie("Resident Evil: Extinction"),

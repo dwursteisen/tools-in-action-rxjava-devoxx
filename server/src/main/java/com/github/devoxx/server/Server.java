@@ -11,10 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan
 @EnableAutoConfiguration
-public class Main {
+public class Server {
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(Server.class, args);
     }
 
     @Bean
