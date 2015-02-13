@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.devoxx.server.model.Actor;
 import com.github.devoxx.server.model.Movie;
+import com.github.devoxx.server.model.Synopsis;
 import com.github.devoxx.server.repository.MovieRepository;
 import com.wordnik.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,13 @@ public class RestApiController {
         return repository.movies();
     }
 
-    @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
-    public List<Actor> movieDetail(@PathVariable("id") String id) {
-        return repository.actors(id);
+    @RequestMapping(value = "/movies/cast/{id}", method = RequestMethod.GET)
+    public List<Actor> cast(@PathVariable("id") String id) {
+        return repository.cast(id);
+    }
+
+    @RequestMapping(value = "/movies/synopsis/{id}", method = RequestMethod.GET)
+    public Synopsis synopsis(@PathVariable("id") String id) {
+        return repository.synopsis(id);
     }
 }

@@ -1,9 +1,11 @@
 package com.github.devoxx.sandbox;
 
+import java.util.Optional;
+
+import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
 import retrofit.RestAdapter;
 import rx.Observable;
-
 
 /**
  _____             _
@@ -32,8 +34,18 @@ public class Main {
 
         ServerApi api = adapter.create(ServerApi.class);
         api.movies().flatMap(Observable::from)
-                .flatMap((m) -> api.actors(m.title))
-                .flatMap(Observable::from)
+                .flatMap((m) -> fromMovie(api, m))
                 .toBlocking().forEach(System.out::println);
+    }
+
+    private static Observable<String> fromMovie(ServerApi api, Movie m) {
+        return api.actors(m.title).zipWith(api.synopsis(m.title), ((actors, synopsis) -> String.format(
+                "------ %s -------\n" +
+                        "--> Actors : %s\n" +
+                        "%s\n",
+
+                m.title,
+                actors,
+                Optional.ofNullable(synopsis).map((s) -> s.synopsis).orElse(""))));
     }
 }
