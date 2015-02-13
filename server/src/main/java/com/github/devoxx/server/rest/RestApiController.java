@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.devoxx.server.model.Actor;
 import com.github.devoxx.server.model.Movie;
 import com.github.devoxx.server.repository.MovieRepository;
+import com.wordnik.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by david.wursteisen on 12/02/2015.
  */
+@Api("Movies")
 @RestController("Movie Controller")
 public class RestApiController {
 
