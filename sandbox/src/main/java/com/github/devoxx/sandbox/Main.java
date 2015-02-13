@@ -1,6 +1,7 @@
 package com.github.devoxx.sandbox;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
 
 import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
@@ -30,10 +31,14 @@ public class Main {
     public static void main(String[] args) {
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint("http://localhost:8080")
+                .setExecutors(Executors.newFixedThreadPool(4), Executors.newFixedThreadPool(4))
                 .build();
 
+
         ServerApi api = adapter.create(ServerApi.class);
-        api.movies().flatMap(Observable::from)
+        api.movies()
+                .doOnNext(System.out::println)
+                .flatMap(Observable::from)
                 .flatMap((m) -> fromMovie(api, m))
                 .toBlocking().forEach(System.out::println);
     }
