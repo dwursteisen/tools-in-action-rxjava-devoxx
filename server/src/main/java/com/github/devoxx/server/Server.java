@@ -1,5 +1,6 @@
 package com.github.devoxx.server;
 
+import com.github.devoxx.server.repository.ActorRepository;
 import com.github.devoxx.server.repository.MovieRepository;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.models.dto.ApiInfo;
@@ -29,6 +30,11 @@ public class Server {
         return new MovieRepository();
     }
 
+    @Bean
+    public ActorRepository actorRepository(MovieRepository movieRepository) {
+        return new ActorRepository(movieRepository);
+    }
+
     /**
      * ---- Swagger ---- *
      */
@@ -44,7 +50,7 @@ public class Server {
     // Don't forget the @Bean annotation
     public SwaggerSpringMvcPlugin customImplementation() {
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-                .includePatterns("/movies.*")
+                .includePatterns("/movies.*", "/actors.*")
                 .apiInfo(new ApiInfo("Movies Catalogue", "Catalogue de film", "", "", "", ""));
     }
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api("Movies")
 @RestController("Movie Controller")
-public class RestApiController {
+public class MovieApi {
 
     private final MovieRepository repository;
 
@@ -27,7 +27,7 @@ public class RestApiController {
     private int waitTime = 0;
 
     @Autowired
-    public RestApiController(MovieRepository repository) {
+    public MovieApi(MovieRepository repository) {
         this.repository = repository;
     }
 

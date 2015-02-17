@@ -1,10 +1,12 @@
 package com.github.devoxx.server.repository;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.github.devoxx.server.model.Actor;
 import com.github.devoxx.server.model.Movie;
@@ -148,4 +150,8 @@ public class MovieRepository {
         public Synopsis synopsis(String id) {
                 return synopsis.get(id);
         }
+
+    public List<Actor> actors() {
+        return actors.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+    }
 }
