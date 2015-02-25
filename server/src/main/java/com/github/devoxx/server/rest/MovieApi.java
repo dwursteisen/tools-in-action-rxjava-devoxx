@@ -1,6 +1,7 @@
 package com.github.devoxx.server.rest;
 
 import java.util.List;
+import java.util.Random;
 
 import com.github.devoxx.server.model.Actor;
 import com.github.devoxx.server.model.Movie;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieApi {
 
     private final MovieRepository repository;
+    private final Random random = new Random();
 
     @Value(value = "${rest.wait.time}")
     private int waitTime = 0;
@@ -51,7 +53,7 @@ public class MovieApi {
 
     private void sleep() {
         try {
-            Thread.sleep(waitTime);
+            Thread.sleep(waitTime + random.nextInt(1000));
         } catch (InterruptedException e) {
             ; // ignore
         }
