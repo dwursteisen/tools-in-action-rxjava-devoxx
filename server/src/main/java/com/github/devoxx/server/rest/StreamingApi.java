@@ -61,10 +61,10 @@ public class StreamingApi {
 
         api.movies().flatMap(Observable::from)
                 .doOnNext(subject::onNext)
-                .flatMap((m) -> api.actors(m.title)
+                .flatMap((m) -> api.actors(m.id)
                         .flatMap(Observable::from)
                         .map((data) -> ImmutableMap.of("movie", m.id, "actor", data))
-                        .mergeWith(api.synopsis(m.title).filter((d) -> d != null)
+                        .mergeWith(api.synopsis(m.id).filter((d) -> d != null)
                                 .map((data) -> ImmutableMap.of("movie", m.id, "synopsis", data))))
                 .subscribe(subject);
         return subject;

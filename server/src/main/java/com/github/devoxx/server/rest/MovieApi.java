@@ -41,13 +41,18 @@ public class MovieApi {
 
     @RequestMapping(value = "/movies/cast/{id}", method = RequestMethod.GET)
     public List<Actor> cast(@PathVariable("id") String id) {
-        sleep();
+        if (!id.equals("pulpfiction")) {
+            sleep(); // no sleep for pulp fiction
+        }
         return repository.cast(id);
     }
 
     @RequestMapping(value = "/movies/synopsis/{id}", method = RequestMethod.GET)
     public Synopsis synopsis(@PathVariable("id") String id) {
         sleep();
+        if (id.equals("thedarkknight")) {
+            sleep(); // visious sleep
+        }
         return repository.synopsis(id);
     }
 
