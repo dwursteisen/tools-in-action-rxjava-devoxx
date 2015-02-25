@@ -8,5 +8,6 @@
              |__|/ \|__|
 
 Swagger Documentation    :     http://localhost:8080/sdoc.jsp
+Streaming Page           :     http://localhost:8080/streaming.html
 Application Version      :     ${application.version}
 Spring Boot Version      :     ${spring-boot.version}
