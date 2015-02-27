@@ -11,9 +11,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import rx.Observable;
 
-/**
- * Created by david.wursteisen on 27/02/2015.
- */
 public class F_CreationObservable {
 
     public static void main(String[] args) {

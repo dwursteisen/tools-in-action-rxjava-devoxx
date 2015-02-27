@@ -5,9 +5,6 @@ import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
 
-/**
- * Created by david.wursteisen on 27/02/2015.
- */
 public class E_AppelObservable {
 
     public static void main(String[] args) {

@@ -13,9 +13,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * Created by david.wursteisen on 27/02/2015.
- */
 public class D_AppelCallback {
 
     public static void main(String[] args) {

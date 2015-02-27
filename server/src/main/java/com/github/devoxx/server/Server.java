@@ -1,12 +1,5 @@
 package com.github.devoxx.server;
 
-import com.github.devoxx.server.repository.ActorRepository;
-import com.github.devoxx.server.repository.MovieRepository;
-import com.github.devoxx.server.util.RequestProcessingTimeInterceptor;
-import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.models.dto.ApiInfo;
-import com.mangofactory.swagger.plugin.EnableSwagger;
-import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,10 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.github.devoxx.server.repository.ActorRepository;
+import com.github.devoxx.server.repository.MovieRepository;
+import com.github.devoxx.server.util.RequestProcessingTimeInterceptor;
+import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
+import com.mangofactory.swagger.models.dto.ApiInfo;
+import com.mangofactory.swagger.plugin.EnableSwagger;
+import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 
-/**
- * Created by david.wursteisen on 12/02/2015.
- */
 @EnableSwagger
 @ComponentScan
 @EnableAutoConfiguration

@@ -22,9 +22,6 @@ import rx.Observable;
 import rx.subjects.PublishSubject;
 import rx.subjects.Subject;
 
-/**
- * Created by david.wursteisen on 25/02/2015.
- */
 @RestController("streaming")
 public class StreamingApi {
 

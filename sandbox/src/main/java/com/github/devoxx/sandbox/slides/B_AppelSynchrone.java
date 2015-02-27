@@ -9,9 +9,6 @@ import com.github.devoxx.sandbox.model.Synopsis;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
 
-/**
- * Created by david.wursteisen on 26/02/2015.
- */
 public class B_AppelSynchrone {
 
     public static void main(String[] args) {

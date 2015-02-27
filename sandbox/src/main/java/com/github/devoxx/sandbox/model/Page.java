@@ -3,9 +3,6 @@ package com.github.devoxx.sandbox.model;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by david.wursteisen on 27/02/2015.
- */
 public class Page {
     public Movie movie;
     public Synopsis synopsis;

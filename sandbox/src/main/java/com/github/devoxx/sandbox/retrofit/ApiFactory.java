@@ -4,9 +4,6 @@ import java.util.concurrent.Executors;
 
 import retrofit.RestAdapter;
 
-/**
- * Created by david.wursteisen on 27/02/2015.
- */
 public class ApiFactory {
 
     private final RestAdapter adapter;

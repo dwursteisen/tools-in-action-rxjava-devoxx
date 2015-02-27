@@ -1,14 +1,10 @@
 package com.github.devoxx.server.repository;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import com.github.devoxx.server.model.Actor;
 import com.github.javafaker.Faker;
-import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Created by david.wursteisen on 17/02/2015.
- */
 public class ActorRepository {
 
     private final MovieRepository movieRepository;

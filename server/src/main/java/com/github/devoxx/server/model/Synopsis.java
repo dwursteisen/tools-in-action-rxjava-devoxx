@@ -1,8 +1,5 @@
 package com.github.devoxx.server.model;
 
-/**
- * Created by david.wursteisen on 13/02/2015.
- */
 public class Synopsis {
 
     public String synopsis;

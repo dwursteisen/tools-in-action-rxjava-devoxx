@@ -1,5 +1,7 @@
 package com.github.devoxx.server.repository;
 
+import static com.github.devoxx.server.model.Movie.titleToId;
+import static java.util.Arrays.asList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,17 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import com.github.devoxx.server.model.Actor;
 import com.github.devoxx.server.model.Movie;
 import com.github.devoxx.server.model.Synopsis;
 
-import static com.github.devoxx.server.model.Movie.titleToId;
-import static java.util.Arrays.asList;
-
-/**
- * Created by david.wursteisen on 12-02-2015.
- */
 public class MovieRepository {
 
         private final List<Movie> allMovies = Arrays.asList(

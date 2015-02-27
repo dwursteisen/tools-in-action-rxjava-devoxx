@@ -9,9 +9,6 @@ import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 
-/**
- * Created by david on 12/02/15.
- */
 public interface CallbackServerApi {
 
     @GET("/movies")

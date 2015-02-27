@@ -9,9 +9,6 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 import rx.Observable;
 
-/**
- * Created by david on 12/02/15.
- */
 public interface ObservableServerApi {
 
     @GET("/movies")

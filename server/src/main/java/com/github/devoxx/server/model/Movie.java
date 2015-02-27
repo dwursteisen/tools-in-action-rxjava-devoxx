@@ -1,8 +1,5 @@
 package com.github.devoxx.server.model;
 
-/**
- * Created by david.wursteisen on 12/02/2015.
- */
 public class Movie {
 
     public Movie(String id, String title) {

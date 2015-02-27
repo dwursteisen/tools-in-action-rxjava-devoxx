@@ -4,9 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 
-/**
- * Created by david.wursteisen on 26/02/2015.
- */
 public class A_DefinitionObservable {
 
     public static void main(String[] args) throws InterruptedException {

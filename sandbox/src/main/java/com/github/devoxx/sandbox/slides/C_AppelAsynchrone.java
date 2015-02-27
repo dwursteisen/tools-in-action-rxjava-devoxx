@@ -12,16 +12,13 @@ import com.github.devoxx.sandbox.model.Synopsis;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
 
-/**
- * Created by david.wursteisen on 27/02/2015.
- */
 public class C_AppelAsynchrone {
 
     public static void main(String[] args) throws Exception {
         ExecutorService threadPool = Executors.newFixedThreadPool(4);
         ServerApi api = new ApiFactory().synchrone();
 
-        Future<List<Movie>> movies = threadPool.submit(() -> api.movies());
+        Future<List<Movie>> movies = threadPool.submit(api::movies);
 
         for (Movie movie : movies.get()) {
             Future<Movie> translation = threadPool.submit(() -> api.translation(movie.id, "FR"));
