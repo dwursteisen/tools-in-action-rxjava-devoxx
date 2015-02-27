@@ -60,6 +60,7 @@ public class StreamingApi {
         RestApi api = buildRestApi();
 
         api.movies().flatMap(Observable::from)
+                .flatMap((m) -> api.translation(m.id, "FR"))
                 .doOnNext(subject::onNext)
                 .flatMap((m) -> api.actors(m.id)
                         .flatMap(Observable::from)
@@ -88,5 +89,8 @@ public class StreamingApi {
 
         @GET("/movies/synopsis/{id}")
         Observable<Synopsis> synopsis(@Path("id") String title);
+
+        @GET("/movies/translation/{id}/{lang}")
+        Observable<Movie> translation(@Path("id") String id, @Path("lang") String lang);
     }
 }

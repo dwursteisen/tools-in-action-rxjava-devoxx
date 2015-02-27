@@ -58,7 +58,7 @@ public class Server extends WebMvcConfigurerAdapter {
     // Don't forget the @Bean annotation
     public SwaggerSpringMvcPlugin customImplementation() {
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-                .includePatterns("/movies.*", "/actors.*")
+                .includePatterns("/movies.*", "/actors.*", "/utils.*")
                 .apiInfo(new ApiInfo("Movies Catalogue", "Catalogue de film", "", "", "", ""));
     }
 

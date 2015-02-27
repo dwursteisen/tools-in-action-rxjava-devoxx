@@ -56,11 +56,16 @@ public class MovieApi {
         return repository.synopsis(id);
     }
 
+    @RequestMapping(value = "/movies/translation/{id}/{lang}", method = RequestMethod.GET)
+    public Movie translation(@PathVariable("id") String id, @PathVariable("lang") String lang) {
+        return repository.translation(id, lang).orElseThrow(() -> new TranslationNotFound(id, lang));
+    }
+
     private void sleep() {
         try {
             Thread.sleep(waitTime + random.nextInt(1000));
         } catch (InterruptedException e) {
-            ; // ignore
+            System.err.println("oups : Interrupted !");
         }
     }
 }
