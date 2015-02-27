@@ -7,21 +7,22 @@ import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.model.Synopsis;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import rx.Observable;
 
 /**
  * Created by david on 12/02/15.
  */
-public interface ServerApi {
+public interface ObservableServerApi {
 
     @GET("/movies")
-    List<Movie> movies();
+    Observable<List<Movie>> movies();
 
     @GET("/movies/cast/{id}")
-    List<Actor> actors(@Path("id") String id);
+    Observable<List<Actor>> actors(@Path("id") String id);
 
     @GET("/movies/synopsis/{id}")
-    Synopsis synopsis(@Path("id") String id);
+    Observable<Synopsis> synopsis(@Path("id") String id);
 
     @GET("/movies/translation/{id}/{lang}")
-    Movie translation(@Path("id") String id, @Path("lang") String lang);
+    Observable<Movie> translation(@Path("id") String id, @Path("lang") String lang);
 }

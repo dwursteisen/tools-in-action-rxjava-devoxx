@@ -12,6 +12,7 @@ public class Movie {
     public Movie() {
     }
 
+    public String id;
     public String title;
 
     @Override

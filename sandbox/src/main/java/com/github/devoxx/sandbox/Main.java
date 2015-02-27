@@ -1,11 +1,10 @@
 package com.github.devoxx.sandbox;
 
 import java.util.Optional;
-import java.util.concurrent.Executors;
 
 import com.github.devoxx.sandbox.model.Movie;
-import com.github.devoxx.sandbox.retrofit.ServerApi;
-import retrofit.RestAdapter;
+import com.github.devoxx.sandbox.retrofit.ApiFactory;
+import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
 
 /**
@@ -29,13 +28,7 @@ import rx.Observable;
 
 public class Main {
     public static void main(String[] args) {
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("http://localhost:8080")
-                .setExecutors(Executors.newFixedThreadPool(4), Executors.newFixedThreadPool(4))
-                .build();
-
-
-        ServerApi api = adapter.create(ServerApi.class);
+        ObservableServerApi api = new ApiFactory().observable();
         api.movies()
                 .doOnNext(System.out::println)
                 .flatMap(Observable::from)
@@ -43,7 +36,7 @@ public class Main {
                 .toBlocking().forEach(System.out::println);
     }
 
-    private static Observable<String> fromMovie(ServerApi api, Movie m) {
+    private static Observable<String> fromMovie(ObservableServerApi api, Movie m) {
         return api.actors(m.title).zipWith(api.synopsis(m.title), ((actors, synopsis) -> String.format(
                 "------ %s -------\n" +
                         "--> Actors : %s\n" +

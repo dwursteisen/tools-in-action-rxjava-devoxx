@@ -16,4 +16,11 @@ public class Synopsis {
     public Synopsis() {
     }
 
+    @Override
+    public String toString() {
+        return "Synopsis{" +
+                "synopsis='" + synopsis + '\'' +
+                ", posterUrl='" + posterUrl + '\'' +
+                '}';
+    }
 }
