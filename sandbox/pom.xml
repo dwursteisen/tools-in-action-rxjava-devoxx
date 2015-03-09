@@ -31,5 +31,11 @@
             <artifactId>rxjava</artifactId>
             <version>1.0.6</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>0.5</version>
+        </dependency>
     </dependencies>
 </project>
