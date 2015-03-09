@@ -12,7 +12,7 @@ import com.github.devoxx.sandbox.model.Synopsis;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
 
-public class C_AppelAsynchrone {
+public class B2_AppelAsynchrone {
 
     public static void main(String[] args) throws Exception {
         ExecutorService threadPool = Executors.newFixedThreadPool(4);

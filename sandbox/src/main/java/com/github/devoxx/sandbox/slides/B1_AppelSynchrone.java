@@ -9,7 +9,7 @@ import com.github.devoxx.sandbox.model.Synopsis;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
 
-public class B_AppelSynchrone {
+public class B1_AppelSynchrone {
 
     public static void main(String[] args) {
         ServerApi api = new ApiFactory().synchrone();

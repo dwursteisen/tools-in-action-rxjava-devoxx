@@ -1,11 +1,12 @@
 package com.github.devoxx.sandbox.slides;
 
-import static java.util.concurrent.CompletableFuture.supplyAsync;
 import com.github.devoxx.sandbox.model.MutablePage;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ServerApi;
 
-public class X_CompletableFuture {
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+
+public class B4_CompletableFuture {
     public static void main(String[] args) {
 
         ServerApi api = new ApiFactory().synchrone();
