@@ -3,9 +3,6 @@ package com.github.devoxx.sandbox.slides;
 import com.github.devoxx.sandbox.observable.ObservableExample;
 import rx.Observable;
 
-/**
- * Created by david.wursteisen on 09/03/2015.
- */
 public class E_Composition {
 
     public static void main(String[] args) {
