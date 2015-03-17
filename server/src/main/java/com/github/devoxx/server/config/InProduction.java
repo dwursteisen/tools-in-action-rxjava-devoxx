@@ -65,7 +65,7 @@ public class InProduction {
 
             private void sleep() {
                 try {
-                    TimeUnit.MILLISECONDS.sleep(waitTime + random.nextInt(1000));
+                    TimeUnit.MILLISECONDS.sleep(waitTime * 2 + random.nextInt(1000));
                 } catch (InterruptedException e) {
                     System.err.println("oups : Interrupted !");
                 }

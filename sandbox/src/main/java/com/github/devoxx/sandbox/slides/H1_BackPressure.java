@@ -10,11 +10,11 @@ import rx.schedulers.Schedulers;
 /**
  * Created by david.wursteisen on 11/03/2015.
  */
-public class H_BackPresure {
+public class H1_BackPressure {
 
     public static void main(String[] args) throws InterruptedException {
         Observable.range(1, 1000)
-                .lift(new Throttler<Integer>(1, TimeUnit.SECONDS))
+                .lift(new Throttler<>(1, TimeUnit.SECONDS))
                 .toBlocking()
                 .forEach(System.out::println);
 
