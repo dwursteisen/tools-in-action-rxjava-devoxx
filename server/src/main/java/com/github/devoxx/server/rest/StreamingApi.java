@@ -6,15 +6,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.Executors;
 import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import com.github.devoxx.server.model.Actor;
 import com.github.devoxx.server.model.Movie;
 import com.github.devoxx.server.model.Synopsis;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -24,6 +24,9 @@ import rx.subjects.Subject;
 
 @RestController("streaming")
 public class StreamingApi {
+
+    @Autowired
+    int port;
 
     @RequestMapping(value = "/streaming/", method = RequestMethod.GET)
     public void status(HttpServletResponse response) throws IOException, InterruptedException {
@@ -70,7 +73,7 @@ public class StreamingApi {
 
     private RestApi buildRestApi() {
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("http://localhost:8080")
+                .setEndpoint("http://localhost:" + port)
                 .setExecutors(Executors.newFixedThreadPool(4), Executors.newFixedThreadPool(4))
                 .build();
 

@@ -1,62 +1,14 @@
 package com.github.devoxx.server;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import com.github.devoxx.server.repository.ActorRepository;
-import com.github.devoxx.server.repository.MovieRepository;
-import com.github.devoxx.server.util.RequestProcessingTimeInterceptor;
-import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.models.dto.ApiInfo;
-import com.mangofactory.swagger.plugin.EnableSwagger;
-import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import com.github.devoxx.server.config.InPoneyLand;
+import com.github.devoxx.server.config.InProduction;
 
-@EnableSwagger
-@ComponentScan
-@EnableAutoConfiguration
-public class Server extends WebMvcConfigurerAdapter {
+public class Server {
 
     public static void main(String[] args) {
-        SpringApplication.run(Server.class, args);
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestProcessingTimeInterceptor());
-        super.addInterceptors(registry);
-    }
-
-    @Bean
-    public MovieRepository movieRepository() {
-        return new MovieRepository();
-    }
-
-    @Bean
-    public ActorRepository actorRepository(MovieRepository movieRepository) {
-        return new ActorRepository(movieRepository);
-    }
-
-    /**
-     * ---- Swagger ---- *
-     */
-
-    private SpringSwaggerConfig springSwaggerConfig;
-
-    @Autowired
-    public void setSpringSwaggerConfig(SpringSwaggerConfig springSwaggerConfig) {
-        this.springSwaggerConfig = springSwaggerConfig;
-    }
-
-    @Bean
-    // Don't forget the @Bean annotation
-    public SwaggerSpringMvcPlugin customImplementation() {
-        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-                .includePatterns("/movies.*", "/actors.*", "/utils.*")
-                .apiInfo(new ApiInfo("Movies Catalogue", "Catalogue de film", "", "", "", ""));
+        new SpringApplicationBuilder().sources(InPoneyLand.class).run(args);
+        new SpringApplicationBuilder().sources(InProduction.class).run(args);
     }
 
 }
