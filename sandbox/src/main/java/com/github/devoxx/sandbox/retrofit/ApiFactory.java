@@ -1,5 +1,6 @@
 package com.github.devoxx.sandbox.retrofit;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import retrofit.RestAdapter;
 
@@ -20,6 +21,12 @@ public class ApiFactory {
                 .setExecutors(Executors.newFixedThreadPool(4), Executors.newFixedThreadPool(4))
                 .build();
 
+    }
+
+    static class SynchronousExecutor implements Executor {
+        @Override public void execute(Runnable runnable) {
+            runnable.run();
+        }
     }
 
     public ObservableServerApi observable() {

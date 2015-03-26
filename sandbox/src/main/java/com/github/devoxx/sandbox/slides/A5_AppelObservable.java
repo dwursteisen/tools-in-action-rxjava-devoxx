@@ -9,16 +9,20 @@ import com.github.devoxx.sandbox.model.Synopsis;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 public class A5_AppelObservable {
 
     public static void main(String[] args) {
-        ObservableServerApi api = new ApiFactory().observable();
+        ObservableServerApi api = new ApiFactory().unreliablePartner().observable();
 
-        api.movies().flatMap(Observable::from)
+        api.movies()
+                .subscribeOn(Schedulers.io())
+                .flatMap(Observable::from)
                 .flatMap((m) -> api.translation(m.id, "FR"))
                 .flatMap((trad) -> composeMovie(api, trad))
-                .subscribe(System.out::println);
+                .toBlocking()
+                .forEach(System.out::println);
 
     }
 

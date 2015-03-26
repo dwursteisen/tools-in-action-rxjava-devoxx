@@ -9,6 +9,6 @@
 
 Swagger Documentation    :     http://localhost:8080/sdoc.jsp
 Streaming Page Dev mode  :     http://localhost:8080/streaming.html
+
+Swagger Documentation    :     http://localhost:8666/sdoc.jsp
 Streaming Page Prod Mode :     http://localhost:8666/streaming.html
-Application Version      :     ${application.version}
-Spring Boot Version      :     ${spring-boot.version}

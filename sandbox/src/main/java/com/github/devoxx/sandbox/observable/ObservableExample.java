@@ -17,12 +17,18 @@ public class ObservableExample {
         return Observable.just("Bob", "Mary", "Cedric", "Patrick", "Olivia");
     }
 
-    public static Observable<String> fromTime() {
-        return Observable.interval(3, TimeUnit.SECONDS)
+    public static Observable<String> fromTime(int time, TimeUnit unit) {
+        return Observable.interval(time, unit)
                 .map(t -> LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME));
 
     }
 
+    /**
+     * This should be launch from a main method, but not from
+     * a jUnit test under IntelliJ as it doesn't capture the
+     * System.in
+     *
+     */
     public static Observable<String> fromKeyboard() {
         Observable<String> keys = Observable.create(subscriber -> {
 

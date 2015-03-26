@@ -22,4 +22,9 @@ public interface ObservableServerApi {
 
     @GET("/movies/translation/{id}/{lang}")
     Observable<Movie> translation(@Path("id") String id, @Path("lang") String lang);
+
+
+    @GET("/movies/traduction/{id}/{lang}")
+    @Deprecated
+    Observable<Movie> traduction(@Path("id") String id, @Path("lang") String lang);
 }
