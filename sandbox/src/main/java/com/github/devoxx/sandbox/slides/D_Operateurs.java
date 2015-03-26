@@ -6,6 +6,7 @@ import rx.Observable;
  * L'idée de ce slide est de construire opération par opération l'observable
  * pour montrer l'ensemble des opérateurs disponibles.
  */
+// D code et parle. B peut avoir des points d'attentions
 public class D_Operateurs {
 
     public static void main(String[] args) throws InterruptedException {

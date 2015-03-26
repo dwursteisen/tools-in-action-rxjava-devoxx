@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 
+// D parle et codé
 public class B_DefinitionObservable {
 
     public static void main(String[] args) throws InterruptedException {

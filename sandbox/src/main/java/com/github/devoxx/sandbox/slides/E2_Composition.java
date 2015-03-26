@@ -5,6 +5,7 @@ import rx.Observable;
 
 import java.util.concurrent.TimeUnit;
 
+// B parle. D code après et essaye de montrer le schéma de la javadoc (Ctrl+Q)
 public class E2_Composition {
 
     public static void main(String[] args) {

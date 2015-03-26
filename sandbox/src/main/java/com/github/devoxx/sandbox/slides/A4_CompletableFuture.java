@@ -6,6 +6,7 @@ import com.github.devoxx.sandbox.retrofit.ServerApi;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
+// B parle
 public class A4_CompletableFuture {
     public static void main(String[] args) {
 

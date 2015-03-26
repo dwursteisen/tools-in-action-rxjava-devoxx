@@ -5,9 +5,8 @@ import com.github.devoxx.sandbox.operators.Throttler;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by david.wursteisen on 11/03/2015.
- */
+
+// B reprend la main pour les obs sans backpressure
 public class H2_BackPressure {
 
     public static void main(String[] args) throws InterruptedException {

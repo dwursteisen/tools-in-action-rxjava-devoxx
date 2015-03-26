@@ -13,6 +13,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+// D code ; B parle
 public class A3_AppelCallback {
 
     public static void main(String[] args) {

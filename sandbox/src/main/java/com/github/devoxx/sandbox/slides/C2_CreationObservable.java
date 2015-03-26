@@ -10,6 +10,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import rx.Observable;
 
+
+// B parle et D code en parlant avec B.
 public class C2_CreationObservable {
 
     public static void main(String[] args) {

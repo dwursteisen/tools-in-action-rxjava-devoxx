@@ -5,9 +5,7 @@ import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
 
-/**
- * Created by david.wursteisen on 11/03/2015.
- */
+// B parle. D reprend la main après le code
 public class F1_ErrorHandling {
 
     public static void main(String[] args) {

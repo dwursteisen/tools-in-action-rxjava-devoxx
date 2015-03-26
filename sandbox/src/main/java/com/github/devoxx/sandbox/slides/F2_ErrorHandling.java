@@ -8,6 +8,7 @@ import rx.Observable;
 /**
  * Created by david.wursteisen on 11/03/2015.
  */
+// D code + parle
 public class F2_ErrorHandling {
 
     public static void main(String[] args) {

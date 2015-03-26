@@ -8,9 +8,7 @@ import reactor.rx.Streams;
 import rx.Observable;
 import rx.RxReactiveStreams;
 
-/**
- * Created by david.wursteisen on 11/03/2015.
- */
+// conclusion : D
 public class I_ReactiveStreams {
 
     public static void main(String[] args) throws InterruptedException {

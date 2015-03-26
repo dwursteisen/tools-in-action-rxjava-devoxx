@@ -8,9 +8,8 @@ import rx.Scheduler;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by david.wursteisen on 11/03/2015.
- */
+
+// D parle + code
 public class H1_BackPressure {
 
     public static void main(String[] args) throws InterruptedException {

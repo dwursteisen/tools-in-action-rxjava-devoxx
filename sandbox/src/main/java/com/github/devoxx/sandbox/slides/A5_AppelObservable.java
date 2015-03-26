@@ -11,6 +11,7 @@ import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
+// B parle ?
 public class A5_AppelObservable {
 
     public static void main(String[] args) {
