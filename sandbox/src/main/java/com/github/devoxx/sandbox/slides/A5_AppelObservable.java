@@ -10,7 +10,7 @@ import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
 
-public class B5_AppelObservable {
+public class A5_AppelObservable {
 
     public static void main(String[] args) {
         ObservableServerApi api = new ApiFactory().observable();

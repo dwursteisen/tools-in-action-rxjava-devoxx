@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 
-public class A_DefinitionObservable {
+public class B_DefinitionObservable {
 
     public static void main(String[] args) throws InterruptedException {
         Observable<Integer> numbers = Observable.just(1, 2, 3, 4);

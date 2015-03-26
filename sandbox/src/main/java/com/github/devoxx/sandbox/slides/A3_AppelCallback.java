@@ -13,7 +13,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class B3_AppelCallback {
+public class A3_AppelCallback {
 
     public static void main(String[] args) {
         CallbackServerApi api = new ApiFactory().callback();

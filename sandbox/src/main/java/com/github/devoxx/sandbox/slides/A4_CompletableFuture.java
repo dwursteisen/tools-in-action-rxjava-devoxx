@@ -6,7 +6,7 @@ import com.github.devoxx.sandbox.retrofit.ServerApi;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
-public class B4_CompletableFuture {
+public class A4_CompletableFuture {
     public static void main(String[] args) {
 
         ServerApi api = new ApiFactory().synchrone();
