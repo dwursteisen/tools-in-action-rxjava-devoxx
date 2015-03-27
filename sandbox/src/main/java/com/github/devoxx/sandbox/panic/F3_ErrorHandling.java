@@ -1,6 +1,5 @@
-package com.github.devoxx.sandbox.slides;
+package com.github.devoxx.sandbox.panic;
 
-import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;

@@ -1,9 +1,10 @@
-package com.github.devoxx.sandbox.slides;
+package com.github.devoxx.sandbox.panic;
+
+import java.util.concurrent.TimeUnit;
 
 import com.github.devoxx.sandbox.observable.ObservableExample;
 import rx.Observable;
 
-import java.util.concurrent.TimeUnit;
 // B parle. D code après et essaye de montrer le schéma de la javadoc (Ctrl+Q)
 public class E3_Composition {
 

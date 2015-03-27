@@ -1,16 +1,15 @@
-package com.github.devoxx.sandbox.slides;
+package com.github.devoxx.sandbox.panic;
 
 import java.util.concurrent.TimeUnit;
 
-import com.github.devoxx.sandbox.client.Clients;
 import com.github.devoxx.sandbox.operators.Throttler;
+import rx.Observable;
 
-
-// B reprend la main pour les obs sans backpressure
-public class H2_BackPressure {
+// D parle + code
+public class H1_BackPressure {
 
     public static void main(String[] args) throws InterruptedException {
-        Clients.sending_lot_of_refresh_queries()
+        Observable.range(1, 1000)
                 .lift(new Throttler<>(1, TimeUnit.SECONDS))
                 .toBlocking()
                 .forEach(System.out::println);
