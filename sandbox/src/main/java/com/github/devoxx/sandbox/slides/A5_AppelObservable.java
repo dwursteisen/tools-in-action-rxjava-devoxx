@@ -1,7 +1,5 @@
 package com.github.devoxx.sandbox.slides;
 
-import java.util.List;
-
 import com.github.devoxx.sandbox.model.Actor;
 import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.model.Page;
@@ -11,7 +9,9 @@ import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-// B parle ?
+import java.util.List;
+
+// B parle
 public class A5_AppelObservable {
 
     public static void main(String[] args) {

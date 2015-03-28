@@ -17,6 +17,12 @@ public class Page {
         this.actors = actors;
     }
 
+    public Page(Movie movie, List<Actor> actors, Synopsis synopsis) {
+        this.movie = movie;
+        this.synopsis = synopsis;
+        this.actors = actors;
+    }
+
     @Override
     public String toString() {
         return "Page{" +

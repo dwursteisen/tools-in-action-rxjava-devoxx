@@ -10,7 +10,8 @@ public class F1_ErrorHandling {
     public static void main(String[] args) {
 
 
-        ObservableServerApi api = new ApiFactory().observable();
+        // concatMap
+        ObservableServerApi api = new ApiFactory().reliablePartner().observable();
 
         Observable.just("thedarkknight", "the2godfather", "pulpfiction", "fightclub")
                 .toBlocking().forEach(System.out::println);

@@ -2,7 +2,7 @@ package com.github.devoxx.sandbox.slides;
 
 import java.util.concurrent.TimeUnit;
 
-// D parle et codé
+// D parle et code
 public class B_DefinitionObservable {
 
     public static void main(String[] args) throws InterruptedException {
