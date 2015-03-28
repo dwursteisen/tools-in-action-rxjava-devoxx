@@ -12,7 +12,7 @@ public class ApiFactory {
     private final RestAdapter adapter;
 
     public ApiFactory() {
-        this(STANDARD_DEV_LOCALHOST);
+        this(UNRELIABLE_LOCALHOST);
     }
 
     public ApiFactory(String endPoint) {
@@ -43,5 +43,9 @@ public class ApiFactory {
 
     public ApiFactory unreliablePartner() {
         return new ApiFactory(UNRELIABLE_LOCALHOST);
+    }
+
+    public ApiFactory reliablePartner() {
+        return new ApiFactory(STANDARD_DEV_LOCALHOST);
     }
 }
