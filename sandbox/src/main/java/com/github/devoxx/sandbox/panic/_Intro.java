@@ -1,10 +1,10 @@
-package com.github.devoxx.sandbox.slides;
-
-import rx.Observable;
+package com.github.devoxx.sandbox.panic;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import rx.Observable;
 
 /**
  * <pre>
@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
  *
  * </pre>
  */
-public class _Presentation {
+public class _Intro {
     public static void main(String[] args) {
         Future<String> future = EXECUTOR_SERVICE.submit(() -> "Hello Devoxx France !");
         Observable.from(future).subscribe(System.out::println);
