@@ -7,22 +7,26 @@ import com.github.devoxx.sandbox.model.Page;
 import com.github.devoxx.sandbox.model.Synopsis;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
+import com.github.devoxx.sandbox.tooling.CSV;
+import com.github.devoxx.sandbox.tooling.Tools;
 import rx.Observable;
 
 // B, D code si nécessaire
-public class G1_Schedulers {
+public class G2_Schedulers {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ObservableServerApi api = new ApiFactory().reliablePartner().observable();
 
-        // on each print thread info
-        // open CSV -> subscribe and append, print err, close csv
-
+        // observe on io
+        CSV csv = new CSV().open();
         api.movies()
                 .flatMapIterable(movies -> movies)
                 .flatMap((m) -> api.translation(m.id, "FR"))
                 .flatMap((trad) -> composeMovie(api, trad))
-        ;
+                .doOnEach(Tools::threadInfo)
+
+                .doOnUnsubscribe(() -> Tools.printFile(csv.location))
+                .forEach(csv::append, System.err::println, csv::close);
     }
 
 
