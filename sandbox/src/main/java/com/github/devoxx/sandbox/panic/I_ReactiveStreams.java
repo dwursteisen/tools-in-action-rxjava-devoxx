@@ -2,9 +2,8 @@ package com.github.devoxx.sandbox.panic;
 
 import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
-import org.reactivestreams.Publisher;
-import reactor.rx.Stream;
-import reactor.rx.Streams;
+import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
+import com.github.devoxx.sandbox.tooling.AwesomeMessageBroker;
 import rx.Observable;
 import rx.RxReactiveStreams;
 
@@ -12,15 +11,15 @@ import rx.RxReactiveStreams;
 public class I_ReactiveStreams {
 
     public static void main(String[] args) throws InterruptedException {
-        Stream<Integer> ints = Streams.range(1, 10);
+        ObservableServerApi api = new ApiFactory().reliablePartner().observable();
 
-        RxReactiveStreams.toObservable(ints).map(i -> i + 1).forEach(System.out::println);
+        Observable<Movie> movies = RxReactiveStreams
+                .toObservable(AwesomeMessageBroker.aeron().moviesRefreshCommands())
+                .flatMap(refreshCommand -> api.movies())
+                .flatMapIterable(mi -> mi);
 
-        Observable<Movie> movies = new ApiFactory().observable().movies().flatMap(Observable::from);
-        Publisher<Movie> rxStreamMovies = RxReactiveStreams.toPublisher(movies);
-
-        Streams.defer(() -> rxStreamMovies)
-                .consume(System.out::println, System.err::println);
-
+        AwesomeMessageBroker.kafka()
+                .forwardMoviesToDataMining(RxReactiveStreams.toPublisher(movies.share()));
     }
+
 }

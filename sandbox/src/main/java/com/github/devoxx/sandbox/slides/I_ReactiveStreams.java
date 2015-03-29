@@ -1,26 +1,20 @@
 package com.github.devoxx.sandbox.slides;
 
-import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
-import org.reactivestreams.Publisher;
-import reactor.rx.Stream;
-import reactor.rx.Streams;
-import rx.Observable;
-import rx.RxReactiveStreams;
+import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 
 // conclusion : D
 public class I_ReactiveStreams {
 
     public static void main(String[] args) throws InterruptedException {
-        Stream<Integer> ints = Streams.range(1, 10);
+        ObservableServerApi api = new ApiFactory().reliablePartner().observable();
 
-        RxReactiveStreams.toObservable(ints).map(i -> i + 1).forEach(System.out::println);
+        // moviesRefresh -> toObservable -> flatMap movies -> flatMap list -> forward
 
-        Observable<Movie> movies = new ApiFactory().observable().movies().flatMap(Observable::from);
-        Publisher<Movie> rxStreamMovies = RxReactiveStreams.toPublisher(movies);
+        // AwesomeMessageBroker
 
-        Streams.defer(() -> rxStreamMovies)
-                .consume(System.out::println, System.err::println);
 
+
+        // AwesomeMessageBroker
     }
 }
