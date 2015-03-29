@@ -12,7 +12,6 @@ public class H2_BackPressure {
     public static void main(String[] args) throws InterruptedException {
         // drop
         Clients.sending_lot_of_refresh_queries()
-                .onBackpressureDrop()
                 .lift(new Throttler<>(1, TimeUnit.SECONDS))
                 .toBlocking()
                 .forEach(System.out::println);
