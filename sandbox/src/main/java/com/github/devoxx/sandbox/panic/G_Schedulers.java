@@ -3,9 +3,6 @@ package com.github.devoxx.sandbox.panic;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by david.wursteisen on 11/03/2015.
- */
 // B, D code si nécessaire
 public class G_Schedulers {
 
