@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tools-in-action-rxjava-devoxx</groupId>
+    <groupId>com.github.devoxx</groupId>
     <artifactId>server</artifactId>
 
     <repositories>
