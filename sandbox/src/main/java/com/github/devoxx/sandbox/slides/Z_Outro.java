@@ -1,7 +1,7 @@
 package com.github.devoxx.sandbox.slides;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import rx.schedulers.Schedulers;
+import static java.lang.String.format;
+import com.github.devoxx.sandbox.twitter.TwitterFun;
 
 /**
  * <pre>
@@ -25,7 +25,10 @@ import rx.schedulers.Schedulers;
  */
 public class Z_Outro {
     public static void main(String[] args) {
-        Schedulers.immediate().createWorker()
-                .schedule(() -> System.out.println("RxJava is awesome"), 5, SECONDS);
+        TwitterFun.prepare().track("RxJava")
+                .map(status -> format("%15s|%s",
+                        status.getUser().getScreenName(),
+                        status.getText().replaceAll("\n", format("\n%15s|", ""))))
+                .subscribe(System.out::println);
     }
 }

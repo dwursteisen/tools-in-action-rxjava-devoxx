@@ -10,7 +10,7 @@ import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import com.github.devoxx.sandbox.tooling.Tools;
 import rx.Observable;
 
-public class J2_Schedulers_Parallelization {
+public class Y2_Schedulers_Parallelization {
 
     public static void main(String[] args) {
         ObservableServerApi api = new ApiFactory().reliablePartner().observable();

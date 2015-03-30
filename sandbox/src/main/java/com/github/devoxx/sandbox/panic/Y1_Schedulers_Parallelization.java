@@ -9,9 +9,8 @@ import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import com.github.devoxx.sandbox.tooling.Tools;
 import rx.Observable;
-import rx.schedulers.Schedulers;
 
-public class J3_Schedulers_Parallelization {
+public class Y1_Schedulers_Parallelization {
 
     public static void main(String[] args) {
         ObservableServerApi api = new ApiFactory().reliablePartner().observable();
@@ -21,9 +20,7 @@ public class J3_Schedulers_Parallelization {
                 .flatMap((m) -> api.translation(m.id, "FR"))
                 .flatMap((trad) -> composeMovie(api, trad))
                 .doOnEach(Tools::threadInfo)
-                .flatMap(page ->
-                        Observable.defer(() -> Tools.calculateHeavyStuff(page))
-                                .subscribeOn(Schedulers.computation()))
+                .flatMap(Tools::calculateHeavyStuff)
                 .observeOn(Tools.finishScheduler())
                 .forEach(Tools::threadInfo, System.err::println);
     }
@@ -34,5 +31,4 @@ public class J3_Schedulers_Parallelization {
         Observable<Synopsis> movieSynopsis = api.synopsis(trad.id);
         return Observable.zip(movieActors, movieSynopsis, (actors, synopsis) -> new Page(trad, synopsis, actors));
     }
-
 }
