@@ -2,6 +2,8 @@ package com.github.devoxx.server.repository;
 
 import static com.github.devoxx.server.model.Movie.titleToId;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.reducing;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -171,11 +173,11 @@ public class MovieRepository {
     }
 
     public Optional<Movie> movie(String id) {
-        return allMovies.stream().collect(Collectors.groupingBy(movie -> movie.id, Collectors.reducing(new BinaryOperator<Movie>() {
+        return allMovies.stream().collect(groupingBy(movie -> movie.id, reducing(new BinaryOperator<Movie>() {
             @Override
             public Movie apply(Movie current, Movie ignored) {
                 return current;
             }
-        }))).get(id);
+        }))).getOrDefault(titleToId(id), Optional.<Movie>empty());
     }
 }

@@ -2,6 +2,7 @@ package com.github.devoxx.sandbox.twitter;
 
 import java.util.Arrays;
 import rx.Observable;
+import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import twitter4j.FilterQuery;
 import twitter4j.Status;
@@ -41,25 +42,24 @@ public abstract class TwitterFun {
 
 
 
-    public static TimelineMesserTwitterFun client() {
+    public static TimelineMessTwitterFun client() {
         PublishSubject<Status> twitterObservable = PublishSubject.create();
 
         Twitter twitter = new TwitterFactory().getInstance();
-        return new TimelineMesserTwitterFun(twitter);
+        return new TimelineMessTwitterFun(twitter);
     }
 
 
-    public static class TimelineMesserTwitterFun extends TwitterFun {
+    public static class TimelineMessTwitterFun extends TwitterFun {
         private Twitter twitter;
 
-        public TimelineMesserTwitterFun(Twitter twitter) {
+        public TimelineMessTwitterFun(Twitter twitter) {
             this.twitter = twitter;
         }
 
         public Observable<Status> updateStatus(String statusText) {
-            System.out.println("updateStatus : " + statusText);
             StatusUpdate latestStatus = new StatusUpdate(statusText);
-            return Observable.create(subscriber -> {
+            return Observable.<Status>create(subscriber -> {
                 try {
                     subscriber.onNext(twitter.updateStatus(latestStatus));
                 } catch (TwitterException te) {
@@ -67,7 +67,7 @@ public abstract class TwitterFun {
                 } finally {
                     subscriber.onCompleted();
                 }
-            });
+            }).subscribeOn(Schedulers.io());
         }
     }
 
