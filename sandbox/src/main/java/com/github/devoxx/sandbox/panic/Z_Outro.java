@@ -1,9 +1,7 @@
 package com.github.devoxx.sandbox.panic;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import rx.Observable;
+import static java.lang.String.format;
+import com.github.devoxx.sandbox.twitter.TwitterFun;
 
 /**
  * <pre>
@@ -27,9 +25,10 @@ import rx.Observable;
  */
 public class Z_Outro {
     public static void main(String[] args) {
-        Future<String> future = EXECUTOR_SERVICE.submit(() -> "Hello Devoxx France !");
-        Observable.from(future).subscribe(System.out::println);
+        TwitterFun.prepare().track("RxJava")
+                .map(status -> format("%15s|%s",
+                        status.getUser().getScreenName(),
+                        status.getText().replaceAll("\n", format("\n%15s|",""))))
+                .subscribe(System.out::println);
     }
-
-    public static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
 }
