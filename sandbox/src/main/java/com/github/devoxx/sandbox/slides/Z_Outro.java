@@ -25,7 +25,7 @@ import com.github.devoxx.sandbox.twitter.TwitterFun;
  */
 public class Z_Outro {
     public static void main(String[] args) {
-        TwitterFun.prepare().track("RxJava")
+        TwitterFun.stream().track("RxJava")
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
                         status.getText().replaceAll("\n", format("\n%15s|", ""))))

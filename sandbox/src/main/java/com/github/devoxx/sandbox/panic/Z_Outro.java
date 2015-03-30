@@ -25,10 +25,12 @@ import com.github.devoxx.sandbox.twitter.TwitterFun;
  */
 public class Z_Outro {
     public static void main(String[] args) {
-        TwitterFun.prepare().track("RxJava")
+        Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava").share();
+
+        rxJavaStream
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
                         status.getText().replaceAll("\n", format("\n%15s|", ""))))
-                .subscribe(System.out::println, TwitterFun::onError);
+                .forEach(System.out::println, TwitterFun::onError);
     }
 }
