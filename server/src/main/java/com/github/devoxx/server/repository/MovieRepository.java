@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.github.devoxx.server.model.Actor;
@@ -167,5 +168,14 @@ public class MovieRepository {
             return Optional.empty();
         }
         return Optional.ofNullable(TRANSLATION.get(id)).map((title) -> new Movie(id, title));
+    }
+
+    public Optional<Movie> movie(String id) {
+        return allMovies.stream().collect(Collectors.groupingBy(movie -> movie.id, Collectors.reducing(new BinaryOperator<Movie>() {
+            @Override
+            public Movie apply(Movie current, Movie ignored) {
+                return current;
+            }
+        }))).get(id);
     }
 }

@@ -24,6 +24,11 @@ public class MovieApi {
         this.repository = repository;
     }
 
+    @RequestMapping(value = "/movie/{id}", method = RequestMethod.GET)
+    public Movie movie(@PathVariable("id") String id) {
+        return repository.movie(id).orElseThrow(() -> new MovieNotFound(id));
+    }
+
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public List<Movie> movies() {
         return repository.movies();

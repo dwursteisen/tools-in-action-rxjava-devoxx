@@ -10,6 +10,9 @@ import retrofit.http.Path;
 
 public interface ServerApi {
 
+    @GET("/movie/{id}")
+    Movie movie(@Path("id") String id);
+
     @GET("/movies")
     List<Movie> movies();
 

@@ -11,6 +11,9 @@ import rx.Observable;
 
 public interface ObservableServerApi {
 
+    @GET("/movie/{id}")
+    Observable<Movie> movie(@Path("id") String id);
+
     @GET("/movies")
     Observable<List<Movie>> movies();
 
@@ -22,7 +25,6 @@ public interface ObservableServerApi {
 
     @GET("/movies/translation/{id}/{lang}")
     Observable<Movie> translation(@Path("id") String id, @Path("lang") String lang);
-
 
     @GET("/movies/traduction/{id}/{lang}")
     @Deprecated
