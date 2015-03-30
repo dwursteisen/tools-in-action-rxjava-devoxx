@@ -28,7 +28,7 @@ public class Z_Outro {
         TwitterFun.prepare().track("RxJava")
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
-                        status.getText().replaceAll("\n", format("\n%15s|",""))))
-                .subscribe(System.out::println);
+                        status.getText().replaceAll("\n", format("\n%15s|", ""))))
+                .subscribe(System.out::println, TwitterFun::onError);
     }
 }

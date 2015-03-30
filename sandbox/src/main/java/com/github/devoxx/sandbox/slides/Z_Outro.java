@@ -29,6 +29,6 @@ public class Z_Outro {
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
                         status.getText().replaceAll("\n", format("\n%15s|", ""))))
-                .subscribe(System.out::println);
+                .subscribe(System.out::println, TwitterFun::onError);
     }
 }

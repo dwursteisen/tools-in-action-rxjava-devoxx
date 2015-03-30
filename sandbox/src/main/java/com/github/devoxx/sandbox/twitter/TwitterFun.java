@@ -53,4 +53,28 @@ public class TwitterFun {
                 .doOnSubscribe(() -> System.out.printf("Looking for tweets with : %s%n", Arrays.deepToString(singleWords)))
                 ;
     }
+
+    public static void onError(Throwable throwable) {
+        System.out.println();
+        System.out.println("                     ¯\\_(ツ)_/¯");
+        System.out.println();
+        System.out.println(
+                "┊┊┊┊┊╭━┫┊DOWN ?┊\n" +
+                "┊┊╭━━━╮╰━╭━━━╮━━\n" +
+                "┊┊┃┈▋▋┃┊┊┃▋▋┈┃┊┊\n" +
+                "┏━╯┈┈┈◣┊┊◢┈┈┈╰━┓\n" +
+                "┃┗━╯┈┈┃┊┊┃┈┈╰━┛┃\n" +
+                "╰━┳━┳━╯┊┊╰━┳━┳━╯\n" +
+                "━━┻━┻━━━━━━┻━┻━━\n" +
+                "┈╱▔▔▔▔▔▔▔╲┏━╮╭━┓\n" +
+                "▕┈╭╮┈┈┈┈┈▕╰━╮╭━╯\n" +
+                "▕━━━╯┈┈┈┈┈╲━╯┃┈┈\n" +
+                "┈╲▂▂▂▂▂▂▂▂▂▂▂╯┈┈\n" +
+                "┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n" +
+                "╭┳╭┳╭┳╭┳╭┳╭┳╭┳╭┳\n" +
+                "╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰ "
+        );
+        System.out.println();
+        System.out.println(throwable.toString());
+    }
 }
