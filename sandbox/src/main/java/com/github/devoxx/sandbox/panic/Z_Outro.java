@@ -1,7 +1,10 @@
 package com.github.devoxx.sandbox.panic;
 
-import static java.lang.String.format;
 import com.github.devoxx.sandbox.twitter.TwitterFun;
+import rx.Observable;
+import twitter4j.Status;
+
+import static java.lang.String.format;
 
 /**
  * <pre>
