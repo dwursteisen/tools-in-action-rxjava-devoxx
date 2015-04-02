@@ -4,13 +4,8 @@ import static com.github.devoxx.server.model.Movie.titleToId;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.reducing;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,6 +27,7 @@ public class MovieRepository {
             new Movie("The Lord of the Rings: The Return of the King"),
             new Movie("Fight Club")
     );
+    private final Random random = new Random();
 
     public List<Movie> movies() {
             return allMovies;
@@ -172,12 +168,14 @@ public class MovieRepository {
         return Optional.ofNullable(TRANSLATION.get(id)).map((title) -> new Movie(id, title));
     }
 
-    public Optional<Movie> movie(String id) {
-        return allMovies.stream().collect(groupingBy(movie -> movie.id, reducing(new BinaryOperator<Movie>() {
-            @Override
-            public Movie apply(Movie current, Movie ignored) {
-                return current;
-            }
-        }))).getOrDefault(titleToId(id), Optional.<Movie>empty());
+    public Optional<Movie> search(String term) {
+        String termAsId = titleToId(term);
+        Optional<Movie> result = allMovies.stream().filter(m -> termAsId.contains(m.id)).findAny();
+        return result;
+    }
+
+    public Movie random() {
+        int index = random.nextInt(allMovies.size());
+        return allMovies.get(index);
     }
 }

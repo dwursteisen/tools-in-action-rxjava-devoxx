@@ -2,9 +2,11 @@ package com.github.devoxx.sandbox.panic;
 
 import static java.lang.String.format;
 import com.github.devoxx.sandbox.twitter.AnswerMachine;
-import com.github.devoxx.sandbox.twitter.TwitterFun;
+import com.github.devoxx.sandbox.twitter.DumbStatus;
 import rx.Observable;
 import twitter4j.Status;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * <pre>
@@ -27,21 +29,29 @@ import twitter4j.Status;
  * </pre>
  */
 public class Z_Outro {
-    public static void main(String[] args) {
-        Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava,#DV15TEST").share();
+
+    public static final DumbStatus TWEET_1 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava tia fail do not exists rubish = -< ][\\ ] ");
+    public static final DumbStatus TWEET_2 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava Fight Club");
+    public static final DumbStatus TWEET_3 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava The Dark Knight");
+
+    public static void main(String[] args) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+       /* Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava,#DV15TEST").share();
 
         rxJavaStream
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
                         status.getText().replaceAll("\n", format("\n%15s|", ""))))
                         .forEach(System.out::println, TwitterFun::onError);
-
+*/
 //         TwitterFun.client().updateStatus("@dwursteisen write tweet '#DV15TEST tia thedarkknight'").subscribe(System.out::println, TwitterFun::onError);
 //         TwitterFun.client().updateStatus("another test with media").subscribe(System.out::println, TwitterFun::onError);
-//        AnswerMachine.observe(Observable.just(new DumbStatus("dwursteisen", "#DVFR15 @RxJava tia fail do not exists rubish = -< ][\ ] fightclub thedarkknight")))
-        AnswerMachine.observe(rxJavaStream) // uncomment for real tweets
+        Observable<Status> mock = Observable.just(TWEET_1, TWEET_2, TWEET_3);
+        AnswerMachine.observe(mock)
+                //  AnswerMachine.observe(rxJavaStream) // uncomment for real tweets
                 .map(status -> "Replied : " + status.getText())
-                .subscribe(System.out::println, System.err::println, () -> System.exit(0));
+                .subscribe(System.out::println, System.err::println, latch::countDown);
+        latch.await();
     }
 
 }

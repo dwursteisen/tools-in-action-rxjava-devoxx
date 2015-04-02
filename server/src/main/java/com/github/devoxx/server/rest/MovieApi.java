@@ -24,9 +24,15 @@ public class MovieApi {
         this.repository = repository;
     }
 
-    @RequestMapping(value = "/movie/{id}", method = RequestMethod.GET)
-    public Movie movie(@PathVariable("id") String id) {
-        return repository.movie(id).orElseThrow(() -> new MovieNotFound(id));
+
+    @RequestMapping(value = "/movie/random", method = RequestMethod.GET)
+    public Movie movie() {
+        return repository.random();
+    }
+
+    @RequestMapping(value = "/search/{term}", method = RequestMethod.GET)
+    public Movie movie(@PathVariable("term") String term) {
+        return repository.search(term).orElseThrow(() -> new MovieNotFound(term));
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
@@ -57,4 +63,6 @@ public class MovieApi {
         }
         return translation(id, lang);
     }
+
+
 }
