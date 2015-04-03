@@ -1,7 +1,10 @@
 package com.github.devoxx.sandbox.slides;
 
 import static java.lang.String.format;
+import com.github.devoxx.sandbox.twitter.AnswerMachine;
 import com.github.devoxx.sandbox.twitter.TwitterFun;
+import rx.Observable;
+import twitter4j.Status;
 
 /**
  * <pre>
@@ -25,10 +28,16 @@ import com.github.devoxx.sandbox.twitter.TwitterFun;
  */
 public class Z_Outro {
     public static void main(String[] args) {
-        TwitterFun.stream().track("RxJava")
+        Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava,#DVFR15").share();
+
+        rxJavaStream
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
                         status.getText().replaceAll("\n", format("\n%15s|", ""))))
-                .subscribe(System.out::println, TwitterFun::onError);
+                .forEach(System.out::println, TwitterFun::onError);
+
+        AnswerMachine.observe(rxJavaStream)
+                .map(status -> "Replied        : " + status.getText())
+                .subscribe(System.out::println, System.err::println);
     }
 }
