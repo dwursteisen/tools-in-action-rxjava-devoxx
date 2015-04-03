@@ -1,5 +1,8 @@
 package com.github.devoxx.sandbox.twitter;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -40,23 +43,29 @@ public class AnswerMachine {
                 .doOnEach(Tools::threadInfo);
     }
 
-    private static Observable<String> buildTweet(String term, Status status) {
+    private static Observable<InternalTweet> buildTweet(String term, Status status) {
         return api.search(term).flatMap(movie ->
                 api.actors(movie.id)
                         .map(actors -> actors.get(random.nextInt(actors.size())))
-                        .map(actor -> buildFoundTweet(status, movie, actor)))
+                        .map(actor -> buildFoundTweet(status, movie, actor))
+                        .zipWith(api.synopsis(movie.id).flatMap(s -> RxOkHttp.INSTANCE.download(s.posterUrl)), InternalTweet::new))
+
                 .onErrorResumeNext(ex -> {
                     return api.random().map(movie ->
-                            buildNotFoundTweet(status, movie)).onErrorReturn(e -> "Issue with the server. Please try again !");
+                            buildNotFoundTweet(status, movie)).onErrorReturn(e -> "Issue with the server. Please try again !")
+                            .map(InternalTweet::new);
                 });
     }
 
-    private static Observable<Status> postFakeTweet(String tweet) {
-        return Observable.just(new DumbStatus("dwursteisen", tweet)).cast(Status.class);
+    private static Observable<Status> postFakeTweet(InternalTweet tweet) {
+        return Observable
+                .just(new DumbStatus("dwursteisen", tweet.status + tweet.poster.map(i -> " with poster").orElse(" without poster")))
+                .cast(Status.class);
     }
 
-    private static Observable<Status> postTweet(String tweet) {
-        return twitterClient.updateStatus(tweet)
+    private static Observable<Status> postTweet(InternalTweet tweet) {
+        return tweet.poster.map(i -> twitterClient.updateStatus(tweet.status, "poster", i))
+                .orElse(twitterClient.updateStatus(tweet.status))
                 .doOnError(t -> t.printStackTrace(System.err))
                 .onErrorResumeNext(Observable.empty());
     }
@@ -73,5 +82,56 @@ public class AnswerMachine {
                 movie.title,
                 actor.firstName, actor.lastName,
                 answerId.getAndIncrement());
+    }
+
+    private static class InternalTweet {
+        private final String status;
+        private final Optional<InputStream> poster;
+
+        private InternalTweet(String status, InputStream poster) {
+            this.status = status;
+            this.poster = Optional.of(poster);
+        }
+
+        public InternalTweet(String status) {
+            this.status = status;
+            this.poster = Optional.empty();
+        }
+
+        @Override
+        public String toString() {
+            return "InternalTweet{" +
+                    "status='" + status + '\'' +
+                    '}';
+        }
+    }
+
+    static class RxOkHttp {
+        public static final RxOkHttp INSTANCE = new RxOkHttp();
+
+        private final OkHttpClient okHttp = new OkHttpClient();
+
+        private RxOkHttp() {
+        }
+
+        public Observable<InputStream> download(String url) {
+            return Observable.create(subscriber -> {
+
+                try {
+                    Request poster = new Request.Builder()
+                            .get()
+                            .url(url)
+                            .build();
+
+                    InputStream responseBody = okHttp.newCall(poster)
+                            .execute()
+                            .body()
+                            .byteStream();
+                    subscriber.onNext(responseBody);
+                } catch (IOException ioe) {
+                    subscriber.onError(ioe);
+                }
+            });
+        }
     }
 }
