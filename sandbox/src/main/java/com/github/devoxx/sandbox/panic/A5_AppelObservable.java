@@ -20,17 +20,17 @@ public class A5_AppelObservable {
         api.movies()
                 .subscribeOn(Schedulers.io())
                 .flatMap(Observable::from)
-                .flatMap((m) -> api.translation(m.id, "FR"))
-                .flatMap((trad) -> composeMovie(api, trad))
+                .flatMap((trad) -> {
+                    Observable<List<Actor>> movieActors = api.actors(trad.id);
+                    Observable<Synopsis> movieSynopsis = api.synopsis(trad.id);
+                    return Observable.zip(movieActors, movieSynopsis, (actors, synopsis) -> new Page(trad, synopsis, actors));
+                })
                 .toBlocking()
                 .forEach(System.out::println);
 
+
     }
 
-    public static Observable<Page> composeMovie(ObservableServerApi api, Movie trad) {
-        Observable<List<Actor>> movieActors = api.actors(trad.id);
-        Observable<Synopsis> movieSynopsis = api.synopsis(trad.id);
-        return Observable.zip(movieActors, movieSynopsis, (actors, synopsis) -> new Page(trad, synopsis, actors));
-    }
+
 
 }
