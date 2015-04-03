@@ -1,7 +1,6 @@
 package com.github.devoxx.sandbox.retrofit;
 
 import java.util.List;
-
 import com.github.devoxx.sandbox.model.Actor;
 import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.model.Synopsis;

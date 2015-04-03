@@ -11,6 +11,8 @@ import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import com.github.devoxx.sandbox.tooling.Tools;
 import com.github.devoxx.sandbox.twitter.TwitterFun.TimelineMessTwitterFun;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
 import rx.Observable;
 import twitter4j.Status;
 

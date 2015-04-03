@@ -1,5 +1,6 @@
 package com.github.devoxx.sandbox.twitter;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -45,8 +46,6 @@ public abstract class TwitterFun {
 
 
     public static TimelineMessTwitterFun client() {
-        PublishSubject<Status> twitterObservable = PublishSubject.create();
-
         Twitter twitter = new TwitterFactory().getInstance();
         return new TimelineMessTwitterFun(twitter);
     }
@@ -61,6 +60,16 @@ public abstract class TwitterFun {
 
         public Observable<Status> updateStatus(String statusText) {
             StatusUpdate latestStatus = new StatusUpdate(statusText);
+            return updateStatus(latestStatus);
+        }
+
+        public Observable<Status> updateStatus(String statusText, String mediaName, InputStream mediaInputStream) {
+            StatusUpdate latestStatus = new StatusUpdate(statusText);
+            latestStatus.setMedia(mediaName, mediaInputStream);
+            return updateStatus(latestStatus);
+        }
+
+        private Observable<Status> updateStatus(StatusUpdate latestStatus) {
             return Observable.<Status>create(subscriber -> {
                 try {
                     subscriber.onNext(twitter.updateStatus(latestStatus));
