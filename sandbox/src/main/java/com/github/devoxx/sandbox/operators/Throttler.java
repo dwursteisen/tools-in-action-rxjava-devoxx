@@ -1,11 +1,11 @@
 package com.github.devoxx.sandbox.operators;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by david on 26/03/15.
@@ -37,7 +37,8 @@ public class Throttler<T> implements Observable.Operator<T, T> {
 
             @Override
             public void onCompleted() {
-                worker.schedule(subscriber::onCompleted, time, unit);
+                // will be call just after the last item
+                subscriber.onCompleted();
             }
 
             @Override
@@ -47,10 +48,8 @@ public class Throttler<T> implements Observable.Operator<T, T> {
 
             @Override
             public void onNext(T integer) {
-                worker.schedule(() -> {
-                    subscriber.onNext(integer);
-                    request(1);
-                }, time, unit);
+                subscriber.onNext(integer);
+                worker.schedule(() -> request(1), time, unit);
             }
         };
     }

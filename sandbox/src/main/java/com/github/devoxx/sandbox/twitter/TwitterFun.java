@@ -1,6 +1,8 @@
 package com.github.devoxx.sandbox.twitter;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
@@ -108,13 +110,22 @@ public abstract class TwitterFun {
                     ;
         }
 
+        private static final DumbStatus TWEET_1 = new DumbStatus("dwursteisen",
+                "#DVFR15 @RxJava tia fail do not exists rubish = -< ][\\ ] ");
+        private static final DumbStatus TWEET_2 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava Fight Club");
+        private static final DumbStatus TWEET_3 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava The Dark Knight");
+
+        public Observable<Status> mock(String... singleWords) {
+            return Observable.interval(1, TimeUnit.SECONDS).flatMap(i -> Observable.just(TWEET_1, TWEET_2, TWEET_3))
+                    .cast(Status.class);
+        }
+
         public Observable<Status> track(String... singleWords) {
             FilterQuery query = new FilterQuery();
             query.track(singleWords);
             return twitterObservable
                     .doOnSubscribe(() -> twitterStream.filter(query))
-                    .doOnSubscribe(() -> System.out.printf("Looking for tweets with : %s%n", Arrays.deepToString(singleWords)))
-                    ;
+                    .doOnSubscribe(() -> System.out.printf("Looking for tweets with : %s%n", Arrays.deepToString(singleWords)));
         }
     }
 }

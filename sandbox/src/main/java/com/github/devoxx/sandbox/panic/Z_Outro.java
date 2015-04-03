@@ -1,16 +1,15 @@
 package com.github.devoxx.sandbox.panic;
 
-import static java.lang.String.format;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CountDownLatch;
 
-import com.github.devoxx.sandbox.operators.Throttler;
 import com.github.devoxx.sandbox.twitter.AnswerMachine;
-import com.github.devoxx.sandbox.twitter.DumbStatus;
 import com.github.devoxx.sandbox.twitter.TwitterFun;
 import rx.Observable;
 import twitter4j.Status;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import static java.lang.String.format;
 
 /**
  * <pre>
@@ -34,25 +33,20 @@ import java.util.concurrent.TimeUnit;
  */
 public class Z_Outro {
 
-    public static final DumbStatus TWEET_1 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava tia fail do not exists rubish = -< ][\\ ] ");
-    public static final DumbStatus TWEET_2 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava Fight Club");
-    public static final DumbStatus TWEET_3 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava The Dark Knight");
-
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
-       Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava,#DV15TEST").share();
+
+        Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava,#DV15TEST").share();
 
         rxJavaStream
                 .map(status -> format("%15s|%s",
                         status.getUser().getScreenName(),
                         status.getText().replaceAll("\n", format("\n%15s|", ""))))
-                        .forEach(System.out::println, TwitterFun::onError);
+                .forEach(System.out::println, TwitterFun::onError);
 
-        // Observable<Status> mock = Observable.just(TWEET_1, TWEET_2, TWEET_3);
-
-        //AnswerMachine.observe(mock)
-                AnswerMachine.observe(rxJavaStream) // uncomment for real tweets
-                .map(status -> "Replied : " + status.getText())
+        AnswerMachine.observe(rxJavaStream)
+                .map(status -> "Replied : " + status.getText() + " (at " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME)
+                        + ")")
                 .subscribe(System.out::println, System.err::println, latch::countDown);
         latch.await();
         System.out.println("Completed !");
