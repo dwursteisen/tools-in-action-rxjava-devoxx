@@ -20,7 +20,8 @@ public class AnswerMachine {
     public static final ObservableServerApi api = new ApiFactory().reliablePartner().observable();
 
     public static Observable<Status> observe(Observable<Status> status) {
-        return status.flatMap(AnswerMachine::answer);
+        return status.lift(new Throttler<Status>(5, TimeUnit.SECONDS))
+                .flatMap(AnswerMachine::answer);
     }
 
     private static final Random random = new Random();
@@ -38,12 +39,9 @@ public class AnswerMachine {
                                     buildNotFoundTweet(status, movie));
                         }))
                 .doOnEach(Tools::threadInfo)
-                .onBackpressureBlock()
-                .lift(new Throttler<String>(5, TimeUnit.SECONDS))
-                .map(s -> (Status) new DumbStatus("dwursteisen", s)) // TODO: replace me
-              //  .flatMap(tweet -> twitterClient.updateStatus(tweet)
-              //          .doOnError(t -> t.printStackTrace(System.err))
-              //          .onErrorResumeNext(Observable.empty()))
+                .flatMap(tweet -> twitterClient.updateStatus(tweet)
+                        .doOnError(t -> t.printStackTrace(System.err))
+                        .onErrorResumeNext(Observable.empty()))
                 .doOnEach(Tools::threadInfo);
     }
 
@@ -54,11 +52,10 @@ public class AnswerMachine {
     }
 
     private static String buildFoundTweet(Status status, Movie movie, Actor actor) {
-        String result = String.format("@%s : %s avec %s %s (answer=%s)",
+        return String.format("@%s : %s avec %s %s (answer=%s)",
                 status.getUser().getScreenName(),
                 movie.title,
                 actor.firstName, actor.lastName,
                 answerId.getAndIncrement());
-        return result;
     }
 }
