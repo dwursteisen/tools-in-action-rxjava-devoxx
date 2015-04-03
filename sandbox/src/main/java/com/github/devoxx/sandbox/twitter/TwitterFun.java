@@ -1,7 +1,11 @@
 package com.github.devoxx.sandbox.twitter;
 
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
+import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import twitter4j.FilterQuery;
 import twitter4j.Status;
@@ -41,25 +45,32 @@ public abstract class TwitterFun {
 
 
 
-    public static TimelineMesserTwitterFun client() {
-        PublishSubject<Status> twitterObservable = PublishSubject.create();
-
+    public static TimelineMessTwitterFun client() {
         Twitter twitter = new TwitterFactory().getInstance();
-        return new TimelineMesserTwitterFun(twitter);
+        return new TimelineMessTwitterFun(twitter);
     }
 
 
-    public static class TimelineMesserTwitterFun extends TwitterFun {
+    public static class TimelineMessTwitterFun extends TwitterFun {
         private Twitter twitter;
 
-        public TimelineMesserTwitterFun(Twitter twitter) {
+        public TimelineMessTwitterFun(Twitter twitter) {
             this.twitter = twitter;
         }
 
         public Observable<Status> updateStatus(String statusText) {
-            System.out.println("updateStatus : " + statusText);
             StatusUpdate latestStatus = new StatusUpdate(statusText);
-            return Observable.create(subscriber -> {
+            return updateStatus(latestStatus);
+        }
+
+        public Observable<Status> updateStatus(String statusText, String mediaName, InputStream mediaInputStream) {
+            StatusUpdate latestStatus = new StatusUpdate(statusText);
+            latestStatus.setMedia(mediaName, mediaInputStream);
+            return updateStatus(latestStatus);
+        }
+
+        private Observable<Status> updateStatus(StatusUpdate latestStatus) {
+            return Observable.<Status>create(subscriber -> {
                 try {
                     subscriber.onNext(twitter.updateStatus(latestStatus));
                 } catch (TwitterException te) {
@@ -67,7 +78,7 @@ public abstract class TwitterFun {
                 } finally {
                     subscriber.onCompleted();
                 }
-            });
+            }).subscribeOn(Schedulers.io());
         }
     }
 
@@ -108,13 +119,22 @@ public abstract class TwitterFun {
                     ;
         }
 
+        private static final DumbStatus TWEET_1 = new DumbStatus("dwursteisen",
+                "#DVFR15 @RxJava tia fail do not exists rubish = -< ][\\ ] ");
+        private static final DumbStatus TWEET_2 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava Fight Club");
+        private static final DumbStatus TWEET_3 = new DumbStatus("dwursteisen", "#DVFR15 @RxJava The Dark Knight");
+
+        public Observable<Status> mock(String... singleWords) {
+            return Observable.interval(1, TimeUnit.SECONDS).flatMap(i -> Observable.just(TWEET_1, TWEET_2, TWEET_3))
+                    .cast(Status.class);
+        }
+
         public Observable<Status> track(String... singleWords) {
             FilterQuery query = new FilterQuery();
             query.track(singleWords);
             return twitterObservable
                     .doOnSubscribe(() -> twitterStream.filter(query))
-                    .doOnSubscribe(() -> System.out.printf("Looking for tweets with : %s%n", Arrays.deepToString(singleWords)))
-                    ;
+                    .doOnSubscribe(() -> System.out.printf("Looking for tweets with : %s%n", Arrays.deepToString(singleWords)));
         }
     }
 }

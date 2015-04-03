@@ -1,7 +1,6 @@
 package com.github.devoxx.sandbox.retrofit;
 
 import java.util.List;
-
 import com.github.devoxx.sandbox.model.Actor;
 import com.github.devoxx.sandbox.model.Movie;
 import com.github.devoxx.sandbox.model.Synopsis;
@@ -11,8 +10,6 @@ import rx.Observable;
 
 public interface ObservableServerApi {
 
-    @GET("/movie/{id}")
-    Observable<Movie> movie(@Path("id") String id);
 
     @GET("/movies")
     Observable<List<Movie>> movies();
@@ -29,4 +26,11 @@ public interface ObservableServerApi {
     @GET("/movies/traduction/{id}/{lang}")
     @Deprecated
     Observable<Movie> traduction(@Path("id") String id, @Path("lang") String lang);
+
+    @GET("/movie/random")
+    Observable<Movie> random();
+
+    @GET("/search/{id}")
+    Observable<Movie> search(@Path("id") String id);
+
 }
