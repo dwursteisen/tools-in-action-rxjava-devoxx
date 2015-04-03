@@ -20,7 +20,7 @@ import rx.Observable;
 import twitter4j.Status;
 
 public class AnswerMachine {
-    private static AtomicLong answerId = new AtomicLong();
+    private static final AtomicLong answerId = new AtomicLong(1);
     public static final TimelineMessTwitterFun twitterClient = TwitterFun.client();
     public static final ObservableServerApi api = new ApiFactory().reliablePartner().observable();
 
@@ -128,6 +128,7 @@ public class AnswerMachine {
                             .body()
                             .byteStream();
                     subscriber.onNext(responseBody);
+                    subscriber.onCompleted();
                 } catch (IOException ioe) {
                     subscriber.onError(ioe);
                 }
