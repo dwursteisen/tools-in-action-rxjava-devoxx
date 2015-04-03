@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class E1_Composition {
 
     // use display !
-    // merge  -> combineLatest -> zip
+    // merge  -> zip
     public static void main(String[] args) throws InterruptedException {
         Observable<String> keys = ObservableExample.fromKeyboard();
         Observable<String> time = ObservableExample.fromTime(1, TimeUnit.SECONDS);

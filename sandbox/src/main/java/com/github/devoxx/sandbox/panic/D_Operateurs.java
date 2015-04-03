@@ -11,13 +11,16 @@ public class D_Operateurs {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Observable.range(1, 102)
+        // range -> filter -> map -> take(5) -> flatMap(i, "-") -> skipLast
+
+        Observable.range(1, 100)
                 .filter(i -> i % 2 == 0)
-                .buffer(5)
-                .skipLast(2)
-                .flatMap(Observable::from)
-                .map(Position::new)
-                .subscribe(System.out::println);
+                .map(i -> Integer.toBinaryString(i))
+                .take(5)
+                .flatMap(i -> Observable.just(i, "-"))
+                .skipLast(1)
+                .subscribe(System.out::print);
+
 
     }
 

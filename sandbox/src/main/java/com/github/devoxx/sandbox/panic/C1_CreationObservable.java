@@ -11,6 +11,8 @@ import rx.Observable;
 public class C1_CreationObservable {
 
     public static void main(String[] args) {
+        // Observable permet d'emettre un element
+        // lancer sans subscribe
         Observable<List<Movie>> synCall = Observable.create((subscriber -> {
             ServerApi api = new ApiFactory().synchrone();
             List<Movie> movies = api.movies();

@@ -11,7 +11,7 @@ public class D_Operateurs {
 
     public static void main(String[] args) throws InterruptedException {
 
-        // range -> filter -> map -> take(5) -> flatMap(i, "-") -> skipLast
+        // range -> filter -> map binary-> take(5) -> flatMap(i, "-") -> skipLast
 
         Observable.range(1, 100)
                 .subscribe(System.out::print);

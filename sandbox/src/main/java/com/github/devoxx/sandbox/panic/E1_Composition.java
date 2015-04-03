@@ -12,6 +12,10 @@ public class E1_Composition {
         Observable<String> keys = ObservableExample.fromKeyboard();
         Observable<String> time = ObservableExample.fromTime(1, TimeUnit.SECONDS);
 
+        // rx permet de faire de la composition.
+        // regardons ce qu'il se passe.
+        // montrer java doc
+
         Observable.merge(time, keys).toBlocking().forEach(E1_Composition::display);
 
     }

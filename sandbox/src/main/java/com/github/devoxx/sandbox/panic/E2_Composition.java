@@ -12,7 +12,8 @@ public class E2_Composition {
         Observable<String> keys = ObservableExample.fromKeyboard();
         Observable<String> time = ObservableExample.fromTime(1, TimeUnit.SECONDS);
 
-        Observable.combineLatest(time, keys, (str1, str2) -> str1 + " --> " + str2).toBlocking().forEach(E2_Composition::display);
+        // zip permet de composer un résultat
+        Observable.zip(time, keys, (t, c) -> t + "/" + c).toBlocking().forEach(E2_Composition::display);
 
     }
 
