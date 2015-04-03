@@ -35,6 +35,7 @@ public class AnswerMachine {
 
     private static Observable<Status> answerToTweet(Status status) {
         return Observable.just(status).map(Status::getText)
+                .filter(s -> !s.matches(".*\\(k\\d+\\).*"))
                 .map(t -> t.toLowerCase().trim().replaceAll("[\\W]", ""))
                 .doOnNext(System.out::println)
                 .concatMap(term -> buildTweet(term, status))
@@ -52,7 +53,7 @@ public class AnswerMachine {
 
                 .onErrorResumeNext(ex -> {
                     return api.random().map(movie ->
-                            buildNotFoundTweet(status, movie)).onErrorReturn(e -> "Issue with the server. Please try again !")
+                            buildNotFoundTweet(status, movie)).onErrorReturn(e -> status.getUser() + " : Oups ! Try again ! Github: https://github.com/dwursteisen/tools-in-action-rxjava-devoxx")
                             .map(InternalTweet::new);
                 });
     }
@@ -71,13 +72,13 @@ public class AnswerMachine {
     }
 
     private static String buildNotFoundTweet(Status status, Movie movie) {
-        return String.format("@%s : Not found... Try with %s (answer=%s)",
+        return String.format("@%s : Not found. Try with %s | Github: https://github.com/dwursteisen/tools-in-action-rxjava-devoxx #DevoxxFr (k%s)",
                 status.getUser().getScreenName(),
                 movie.title, answerId.getAndIncrement());
     }
 
     private static String buildFoundTweet(Status status, Movie movie, Actor actor) {
-        return String.format("@%s : %s is a good movie with %s %s (answer=%s)",
+        return String.format("@%s : %s is a good movie with %s %s | Github: https://github.com/dwursteisen/tools-in-action-rxjava-devoxx #DevoxxFr (k%s)",
                 status.getUser().getScreenName(),
                 movie.title,
                 actor.firstName, actor.lastName,

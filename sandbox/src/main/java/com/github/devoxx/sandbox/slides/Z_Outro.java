@@ -39,7 +39,10 @@ public class Z_Outro {
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
 
-        Observable<Status> rxJavaStream = TwitterFun.stream().track("RxJava", "#DV15TEST", "#DV15", "#DVXFR15", "#MOVIE").share();
+        /**
+         * TWEETER AVEC LE HASHTAG -> #DVFR
+         */
+        Observable<Status> rxJavaStream = TwitterFun.stream().track("#DVFR", "RxJava").share();
 
         rxJavaStream
                 .map(status -> format("%15s|%s",
