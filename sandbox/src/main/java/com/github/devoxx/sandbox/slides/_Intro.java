@@ -1,14 +1,13 @@
 package com.github.devoxx.sandbox.slides;
 
-import rx.Observable;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import rx.Observable;
 
 /**
  * <pre>
- * _____             _
+ *  _____             _
  * |  __ \           | |
  * | |__) |__  __    | |  __ _ __   __ __ _
  * |  _  / \ \/ /_   | | / _` |\ \ / // _` |
