@@ -4,9 +4,8 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
-/**
- *
- */
+import java.util.concurrent.TimeUnit;
+
 public class Clients {
     /**
      * This is an artificial source to demonstrate an infinite stream that emits randomly
@@ -19,7 +18,7 @@ public class Clients {
                 try {
                     // sleep for a random amount of time
                     // NOTE: Only using Thread.sleep here as an artificial demo.
-                    Thread.sleep((long) (Math.random() * 10));
+                    TimeUnit.MILLISECONDS.sleep((long) (Math.random() * 5));
                 } catch (Exception e) {
                     // do nothing
                 }
