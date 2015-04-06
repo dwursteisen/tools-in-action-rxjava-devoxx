@@ -12,6 +12,8 @@ public class F1_ErrorHandling {
 
         ObservableServerApi api = new ApiFactory().observable();
 
+        // concaptMap permet de traiter les events dans l'ORDRE.
+        // alors que flatMap ne garanti pas l'ordre
         Observable.just("thedarkknight", "the2godfather", "pulpfiction", "fightclub")
                 .concatMap((id) -> api.traduction(id, "FR"))
                 .onErrorReturn((e) -> new Movie("oups"))
