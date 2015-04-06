@@ -1,5 +1,11 @@
 # Tool's In Action RxJava
 
+## Commencer avec RxJava
+
+On vous conseils de regarder les slides de notre pr√©sentation [RxJava - Getting Started](https://speakerdeck.com/dwursteisen/rxjava-getting-started-1) sur speakerdeck
+
+[![slide screensot](https://speakerd.s3.amazonaws.com/presentations/61d01b203d93013286d40a707911af0b/slide_31.jpg?1417995826)](https://speakerdeck.com/dwursteisen/rxjava-getting-started-1)
+
 ## Sandbox
 
 Contient le code qui manipulera le webservice cf la classe ```Main```
@@ -8,7 +14,7 @@ Contient le code qui manipulera le webservice cf la classe ```Main```
 
 Contient un serveur web qui est volontairement *lent*
 
-Pour dÈmarrer le server, il suffit de lancer le main de la class ```Server```
+Pour d√©marrer le server, il suffit de lancer le main de la class ```Server```
 
 Il est possible de tester les webservices via [Swagger](http://localhost:8080/sdoc.jsp).
 
@@ -18,4 +24,4 @@ Il est possible d'executer le script ```build.sh``` (ou ```build.bat```) qui va 
 
     mvn install dependency:go-offline
     
-Cette commande permet de builder le projet et surtout de rÈcupËrer les dÈpendences pour pouvoir dÈmarrer le tout sans connexion Internet.
+Cette commande permet de builder le projet et surtout de r√©cup√®rer les d√©pendences pour pouvoir d√©marrer le tout sans connexion Internet.
