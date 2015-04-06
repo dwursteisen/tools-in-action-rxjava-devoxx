@@ -1,13 +1,13 @@
 package com.github.devoxx.sandbox.slides;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.CountDownLatch;
-
 import com.github.devoxx.sandbox.twitter.AnswerMachine;
 import com.github.devoxx.sandbox.twitter.TwitterFun;
 import rx.Observable;
 import twitter4j.Status;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CountDownLatch;
 
 import static java.lang.String.format;
 
@@ -40,7 +40,9 @@ public class Z_Outro {
         CountDownLatch latch = new CountDownLatch(1);
 
         /**
-         * TWEETER AVEC LE HASHTAG -> #DVFR
+         * TWEETER AVEC LE HASHTAG -> #DVFR et un nom de film
+         *                 exemple :  #DVFR "Fight Club"
+         *                 exemple :  #DVFR The Dark Knight
          */
         Observable<Status> rxJavaStream = TwitterFun.stream().track("#DVFR", "RxJava").share();
 
