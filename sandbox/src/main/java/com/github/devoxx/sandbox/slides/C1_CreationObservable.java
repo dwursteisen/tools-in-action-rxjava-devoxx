@@ -9,6 +9,7 @@ public class C1_CreationObservable {
     private static final ServerApi API = new ApiFactory().synchrone();
 
     public static void main(String[] args) {
+        // create -> and don't subscribe yet
 
     }
 }
