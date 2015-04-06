@@ -1,15 +1,8 @@
 package com.github.devoxx.sandbox.twitter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Optional;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.github.devoxx.sandbox.model.Actor;
 import com.github.devoxx.sandbox.model.Movie;
-import com.github.devoxx.sandbox.operators.Throttler;
+import com.github.devoxx.sandbox.operators.TimeRateLimiter;
 import com.github.devoxx.sandbox.retrofit.ApiFactory;
 import com.github.devoxx.sandbox.retrofit.ObservableServerApi;
 import com.github.devoxx.sandbox.tooling.Tools;
@@ -19,6 +12,13 @@ import com.squareup.okhttp.Request;
 import rx.Observable;
 import twitter4j.Status;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
+
 public class AnswerMachine {
     private static final AtomicLong answerId = new AtomicLong(1);
     public static final TimelineMessTwitterFun twitterClient = TwitterFun.client();
@@ -27,7 +27,7 @@ public class AnswerMachine {
     public static Observable<Status> observe(Observable<Status> status) {
         return status
                 .onBackpressureBuffer()
-                .lift(new Throttler<Status>(5, TimeUnit.SECONDS))
+                .lift(new TimeRateLimiter<Status>(5, TimeUnit.SECONDS))
                 .flatMap(AnswerMachine::answerToTweet);
     }
 

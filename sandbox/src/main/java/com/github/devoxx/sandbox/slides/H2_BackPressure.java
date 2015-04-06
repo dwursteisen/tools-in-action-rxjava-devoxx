@@ -1,7 +1,7 @@
 package com.github.devoxx.sandbox.slides;
 
 import com.github.devoxx.sandbox.client.Clients;
-import com.github.devoxx.sandbox.operators.Throttler;
+import com.github.devoxx.sandbox.operators.TimeRateLimiter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +12,7 @@ public class H2_BackPressure {
     public static void main(String[] args) throws InterruptedException {
         // drop
         Clients.sending_lot_of_refresh_queries()
-                .lift(new Throttler<>(1, TimeUnit.SECONDS))
+                .lift(new TimeRateLimiter<>(1, TimeUnit.SECONDS))
                 .toBlocking()
                 .forEach(System.out::println);
 
